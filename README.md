@@ -39,7 +39,7 @@ Boa sorte e divirta-se! ;)
 
 Este projeto foi desenvolvido para candidatura à vaga de Software Developer Backend na Digital Republic.
 
-A arquitetura MSC foi escolhida para desenvolvevimento da API, seguindo os padrões do REST como exigido pelo enunciado do desafio, com utilização dos frameworks Node.js e Express.js (JavaScript). O banco de dados utilizado foi o MySQL, em conjunto com o ORM (Object-Relational Mapper) Sequelize para fazer uso das _transactions_, e conferir segurança e cridibilidade ao código; e evitar inconsistências nas transferências do banco.
+A arquitetura MSC foi escolhida para desenvolvimento da API, seguindo os padrões REST como exigido pelo enunciado do desafio, com utilização dos frameworks Node.js e Express.js (JavaScript). O banco de dados utilizado foi o MySQL, em conjunto com o ORM (Object-Relational Mapper) Sequelize para fazer uso das _transactions_, e conferir segurança e cridibilidade ao código; e evitar inconsistências nas transferências do banco.
 
 Para escrita de testes, foram utilizados os frameworks Sinon, Mocha e Chai.
 
