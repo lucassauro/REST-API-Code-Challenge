@@ -28,6 +28,7 @@ CREATE TABLE `Branches` (
 CREATE TABLE `Accounts` (
   `account_id` INT PRIMARY KEY AUTO_INCREMENT,
   `account_number` VARCHAR(255) NOT NULL,
+  `pw_hash` VARCHAR(255) NOT NULL,
   `balance` DECIMAL(10,2) NOT NULL,
   `type_id` INT NOT NULL,
   `status_id` INT NOT NULL,
@@ -119,9 +120,9 @@ VALUES
 ('Agência 03', 3),
 ('Agência 04', 4);
 
-INSERT INTO Accounts (account_number, balance, type_id, status_id, customer_id, branch_id)
+INSERT INTO Accounts (account_number, pw_hash, balance, type_id, status_id, customer_id, branch_id)
 VALUES
-('318-82-6264', 1500.00, 1, 1, 1, 1),
-('408-92-3605', 700.00, 4, 1, 2, 3),
-('232-37-2069', 20000.00, 1, 1, 3, 1),
-('224-95-7443', 3400.00, 3, 1, 5, 4);
+('318-82-6264', '6f5a1bbc634c46a07fedd1b6a015fd417f51499a17cd8cebcb3e1470c06684c1', 1500.00, 1, 1, 1, 1),
+('408-92-3605', '73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049', 700.00, 4, 1, 2, 3),
+('232-37-2069', '73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049', 20000.00, 1, 1, 3, 1),
+('224-95-7443', '73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049', 3400.00, 3, 1, 5, 4);
