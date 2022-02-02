@@ -9,7 +9,7 @@ const Branch = (sequelize, DataTypes) => {
     timestamps: false,
   });
   branch.associate = (models) => {
-    branch.hasMany(models.Accounts, {
+    branch.hasMany(models.Account, {
       foreignKey: 'branch_id',
     });
   };

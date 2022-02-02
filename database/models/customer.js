@@ -30,7 +30,7 @@ const Customer = (sequelize, DataTypes) => {
     timestamps: true,
   });
   customer.associate = (models) => {
-    customer.hasOne(models.Accounts, {
+    customer.hasOne(models.Account, {
       foreignKey: 'customer_id',
     });
   };

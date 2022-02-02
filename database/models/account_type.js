@@ -9,7 +9,7 @@ const AccountType = (sequelize, DataTypes) => {
     timestamps: false,
   });
   accountType.associate = (models) => {
-    accountType.hasMany(models.Accounts, {
+    accountType.hasMany(models.Account, {
       foreignKey: 'type_id',
     });
   };

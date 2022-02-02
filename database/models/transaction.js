@@ -44,10 +44,10 @@ const Transaction = (sequelize, DataTypes) => {
   });
   transaction.associate = (models) => {
     transaction.belongsToMany(models.Account, {
-      foreignKey: 'account_id', as: 'account_payer',
+      foreignKey: 'account_id', as: 'account_payer', through: 'transaction',
     });
     transaction.belongsToMany(models.Account, {
-      foreignKey: 'account_id', as: 'account_payee',
+      foreignKey: 'account_id', as: 'account_payee', through: 'transaction',
     });
   };
   return transaction;

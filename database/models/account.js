@@ -51,10 +51,10 @@ const Account = (sequelize, DataTypes) => {
     account.belongsTo(models.Branch, {
       foreignKey: 'branch_id',
     });
-    account.belongsTo(models.AccountStatus, {
+    account.belongsTo(models.Account_status, {
       foreignKey: 'status_id',
     });
-    account.belongsTo(models.AccountType, {
+    account.belongsTo(models.Account_type, {
       foreignKey: 'type_id',
     });
   };
