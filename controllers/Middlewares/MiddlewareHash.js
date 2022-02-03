@@ -1,8 +1,8 @@
 const SHA256 = require('crypto-js/sha256');
 
-const passwordHash = async (req, res, next) => {
+const passwordHash = (req, res, next) => {
   const { password } = req.body;
-  const hashedPW = await SHA256(password);
+  const hashedPW = SHA256(password).toString();
   req.password = hashedPW;
   next();
 };
