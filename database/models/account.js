@@ -2,17 +2,24 @@ const Account = (sequelize, DataTypes) => {
   const account = sequelize.define('Account', {
     accountId: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
       field: 'account_id',
     },
     accountNumber: {
+      allowNull: false,
       type: DataTypes.STRING,
       field: 'account_number',
     },
     pwHash: {
+      allowNull: false,
       type: DataTypes.STRING,
       field: 'pw_hash',
     },
-    balance: DataTypes.DECIMAL,
+    balance: {
+      type: DataTypes.DECIMAL,
+      defaultValue: 0,
+    },
     typeId: {
       type: DataTypes.INTEGER,
       field: 'type_id',
@@ -22,6 +29,7 @@ const Account = (sequelize, DataTypes) => {
       field: 'status_id',
     },
     customerId: {
+      allowNull: false,
       type: DataTypes.INTEGER,
       field: 'customer_id',
     },
@@ -43,6 +51,7 @@ const Account = (sequelize, DataTypes) => {
     sequelize,
     underscored: true,
     timestamps: true,
+    tableName: 'Accounts',
   });
   account.associate = (models) => {
     account.belongsTo(models.Customer, {

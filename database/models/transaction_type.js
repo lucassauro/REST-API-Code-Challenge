@@ -2,6 +2,7 @@ const TransactionType = (sequelize, DataTypes) => {
   const transactionType = sequelize.define('Transaction_type', {
     typeId: {
       type: DataTypes.STRING,
+      primaryKey: true,
       field: 'type_id',
     },
     type: DataTypes.STRING,

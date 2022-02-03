@@ -2,6 +2,7 @@ const AccountStatus = (sequelize, DataTypes) => {
   const accountStatus = sequelize.define('Account_status', {
     statusId: {
       type: DataTypes.STRING,
+      primaryKey: true,
       field: 'status_id',
     },
     status: DataTypes.STRING,

@@ -2,6 +2,7 @@ const AccountType = (sequelize, DataTypes) => {
   const accountType = sequelize.define('Account_type', {
     typeId: {
       type: DataTypes.STRING,
+      primaryKey: true,
       field: 'type_id',
     },
     type: DataTypes.STRING,

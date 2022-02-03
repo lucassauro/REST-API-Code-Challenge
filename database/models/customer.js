@@ -1,8 +1,17 @@
 const Customer = (sequelize, DataTypes) => {
   const customer = sequelize.define('Customer', {
-    customerId: DataTypes.INTEGER,
-    cpf: DataTypes.STRING,
+    customerId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      field: 'customer_id',
+    },
+    cpf: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     firstName: {
+      allowNull: false,
       type: DataTypes.STRING,
       field: 'first_name',
     },
@@ -11,6 +20,7 @@ const Customer = (sequelize, DataTypes) => {
       field: 'middle_name',
     },
     lastName: {
+      allowNull: false,
       type: DataTypes.STRING,
       field: 'last_name',
     },
@@ -28,6 +38,7 @@ const Customer = (sequelize, DataTypes) => {
     sequelize,
     underscored: true,
     timestamps: true,
+    tableName: 'Customers',
   });
   customer.associate = (models) => {
     customer.hasOne(models.Account, {

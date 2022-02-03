@@ -5,8 +5,6 @@ module.exports = {
       first_name: 'Tício',
       middle_name: null,
       last_name: 'Ticiano',
-      // created_at: new Date(),
-      // updated_at: new Date(),
     }], {});
   },
 
