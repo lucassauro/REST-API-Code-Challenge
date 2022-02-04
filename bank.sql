@@ -10,7 +10,7 @@ CREATE TABLE `Customers` (
   `first_name` VARCHAR(255) NOT NULL,
   `middle_name` VARCHAR(255) DEFAULT null,
   `last_name` VARCHAR(255) NOT NULL,
-  `created_at` TIMESTAMP DEFAULT (now())
+  `created_at` TIMESTAMP DEFAULT (NOW())
 );
 
 
@@ -28,14 +28,14 @@ CREATE TABLE `Accounts` (
   `status_id` INT NOT NULL,
   `customer_id` INT NOT NULL,
   `branch_id` INT NOT NULL,
-  `created_at` TIMESTAMP DEFAULT (now())
+  `created_at` TIMESTAMP DEFAULT (NOW())
 );
 
 CREATE TABLE `Transactions` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `type_id` INT NOT NULL,
   `amount` DECIMAL(10, 2) NOT NULL,
-  `date` TIMESTAMP DEFAULT (now()),
+  `date` TIMESTAMP DEFAULT (NOW()),
   `account_payer` INT NOT NULL,
   `account_payee` INT NOT NULL
 );
@@ -53,6 +53,14 @@ CREATE TABLE `Account_Status` (
 CREATE TABLE `Transaction_Types` (
   `type_id` INT PRIMARY KEY AUTO_INCREMENT,
   `type` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `Failed_Login_Attempts` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `customer_id` INT NOT NULL,
+  `cpf` VARCHAR(255) NOT NULL,
+  `account_number` INT NOT NULL,
+  `date` TIMESTAMP DEFAULT (NOW()) 
 );
 
 ALTER TABLE `Accounts` ADD FOREIGN KEY (`customer_id`) REFERENCES `Customers` (`customer_id`);
