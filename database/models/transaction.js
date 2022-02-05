@@ -9,8 +9,11 @@ const Transaction = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       field: 'type_id',
     },
-    amount: DataTypes.DECIMAL,
-    date: DataTypes.DATE,
+    amount: DataTypes.DECIMAL(10, 2),
+    date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
     accountPayer: {
       type: DataTypes.INTEGER,
       field: 'account_payer',
@@ -27,20 +30,11 @@ const Transaction = (sequelize, DataTypes) => {
         key: 'account_id',
       },
     },
-    createdAt: {
-      field: 'created_at',
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-      field: 'updated_at',
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   }, {
     sequelize,
     underscored: true,
     timestamps: true,
+    tableName: 'Transactions',
   });
   transaction.associate = (models) => {
     transaction.belongsToMany(models.Account, {

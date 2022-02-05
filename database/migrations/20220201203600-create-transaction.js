@@ -13,7 +13,7 @@ module.exports = {
         field: 'type_id',
       },
       amount: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(10, 2),
       },
       date: {
         type: Sequelize.DATE,

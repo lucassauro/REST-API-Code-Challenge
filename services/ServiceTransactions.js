@@ -1,6 +1,7 @@
 const { sequelize } = require('../database/models/index');
 const models = require('../database/models');
 const findBalance = require('./functions/findBalance');
+const verifyAccount = require('./functions/verifyAccount');
 
 const errors = {
   invalidTransfer: {
@@ -18,42 +19,74 @@ const errors = {
 };
 
 const deposits = async (value, customerId, accountNumber) => {
+  const t = await sequelize.transaction();
   try {
-    const [balance] = await findBalance(customerId);
+    const [balance, accountId] = await findBalance(customerId);
+
     const newBalance = balance + parseFloat(value);
+
+    await models.Transaction.create({
+      typeId: 2, // transaction_type deposit;
+      amount: parseFloat(value),
+      accountPayer: accountId,
+      accountPayee: accountId,
+    }, {
+      transaction: t,
+    });
 
     await models.Account.update({
       balance: newBalance,
     }, {
       where: { customerId, accountNumber },
+      transaction: t,
     });
+
+    t.commit();
+
     return {
       previous: balance.toFixed(2),
       balance: newBalance.toFixed(2),
     };
   } catch (error) {
+    t.rollback();
+
     return { error };
   }
 };
 
-const transfers = async (customerId, value, to) => {
+const transfers = async (customerId, val, to) => {
   const t = await sequelize.transaction();
 
-  const [payerBalance, accountNumber] = await findBalance(customerId);
-
-  if (accountNumber === to) return errors.invalidTransfer;
-
-  if (payerBalance < value) return errors.insufficientBalance;
-
-  const payeeBalance = await findBalance(undefined, to);
-
-  if (typeof payeeBalance === 'undefined' || payeeBalance === null) return errors.accountNotFound;
-
-  const newPayerBalance = payerBalance - parseFloat(value);
-
-  const newPayeeBalance = payeeBalance + parseFloat(value);
+  const value = parseFloat(val);
 
   try {
+    const account = await verifyAccount(to);
+
+    const payeeAccountId = account.accountId;
+
+    const [payerBalance, accountId, accountNumber] = await findBalance(customerId);
+
+    if (accountNumber === to) return errors.invalidTransfer;
+
+    if (payerBalance < value) return errors.insufficientBalance;
+
+    const payeeBalance = await findBalance(undefined, to);
+
+    if (typeof payeeBalance === 'undefined' || payeeBalance === null) return errors.accountNotFound;
+
+    const newPayerBalance = payerBalance - value;
+
+    const newPayeeBalance = payeeBalance + value;
+    console.log(value);
+    await models.Transaction.create({
+      typeId: 1, // transaction_type transfer;
+      amount: value,
+      accountPayer: accountId,
+      accountPayee: payeeAccountId,
+    }, {
+      transaction: t,
+    });
+
     await models.Account.update(
       { balance: newPayerBalance },
       { where: { customerId }, transaction: t },
@@ -65,12 +98,14 @@ const transfers = async (customerId, value, to) => {
     );
 
     t.commit();
+
     return {
       previous: payerBalance.toFixed(2),
       balance: newPayerBalance.toFixed(2),
     };
   } catch (error) {
     t.rollback();
+
     return { error };
   }
 };

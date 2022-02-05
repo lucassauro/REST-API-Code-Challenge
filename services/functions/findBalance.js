@@ -5,7 +5,7 @@ const findBalance = async (customerId, accountNumber) => {
     try {
       const account = await models.Account.findOne({ where: { customerId } });
 
-      return [parseFloat(account.balance), account.accountNumber];
+      return [parseFloat(account.balance), account.accountId, account.accountNumber];
     } catch (error) {
       return { error };
     }
