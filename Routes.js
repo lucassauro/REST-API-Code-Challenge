@@ -1,12 +1,16 @@
 const express = require('express');
+// Middlewares
 const generateCPF = require('./controllers/ControllerCPFGenerator');
 const passwordHash = require('./controllers/Middlewares/MiddlewareHash');
 const validateCPF = require('./controllers/Middlewares/MiddlewareCPF');
 const validatePW = require('./controllers/Middlewares/MiddlewarePW');
 const validateNames = require('./controllers/Middlewares/MiddlewareName');
+const validateValue = require('./controllers/Middlewares/MiddlewareValue');
 const auth = require('./controllers/Middlewares/MiddlewareAuth');
+// controllers
 const ControllerSignup = require('./controllers/ControllerSignup');
 const ControllerLogin = require('./controllers/ControllerLogin');
+const ControllerTransactions = require('./controllers/ControllerTransactions');
 
 const router = express.Router();
 
@@ -28,11 +32,26 @@ router.post('/login', [
   ControllerLogin.login,
 ]);
 
-router.get('/me', auth, (req, res) => {
-  res.json(req.auth);
-});
+router.get('/me', [
+  auth,
+  (req, res) => res.json(req.me),
+]);
 
-router.get('/me/deposit');
-router.get('/me/transfer');
+router.get('/me/account', [
+  auth,
+  (req, res) => res.json(req.myAccount),
+]);
+
+router.post('/me/deposit', [
+  validateValue,
+  auth,
+  ControllerTransactions.deposits,
+]);
+
+router.post('/me/transfer', [
+  validateValue,
+  auth,
+  ControllerTransactions.transfers,
+]);
 
 module.exports = router;

@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const secret = process.env.SECRET || 'secret';
 
-const sign = (payload) => jwt.sign(payload, secret, { expiresIn: '6h', algorithm: 'HS256' });
+const sign = (payload) => jwt.sign(payload, secret, { expiresIn: '7d', algorithm: 'HS256' });
 const verify = (token) => jwt.verify(token, secret);
 
 module.exports = {

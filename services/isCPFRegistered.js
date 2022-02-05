@@ -5,7 +5,7 @@ const isCPFRegistered = async (cpf) => {
 
   if (exists) return { customerId: exists.customerId };
 
-  return false;
+  return null;
 };
 
 module.exports = isCPFRegistered;

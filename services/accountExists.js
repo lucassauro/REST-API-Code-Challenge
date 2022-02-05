@@ -22,6 +22,16 @@ const accountExists = async (accountNumber, customerId, password) => {
     );
     return account;
   }
+  if (typeof customerId !== 'undefined') {
+    const account = await models.Account.findOne(
+      {
+        where: {
+          customerId,
+        },
+      },
+    );
+    return account;
+  }
   return null;
 };
 
