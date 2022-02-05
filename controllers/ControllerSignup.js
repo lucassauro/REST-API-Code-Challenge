@@ -1,7 +1,7 @@
 const ServiceSignup = require('../services/ServiceSignup');
-const { sign } = require('../services/jwt');
+const { sign } = require('../services/functions/jwt');
 
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
   const {
     firstName,
     middleName,
@@ -12,13 +12,17 @@ const signup = async (req, res) => {
 
   const [cpf] = Buffer.from(hash, 'base64').toString().split(':');
 
-  const result = await ServiceSignup.signup(cpf, firstName, middleName, lastName, req.password);
+  try {
+    const result = await ServiceSignup.signup(cpf, firstName, middleName, lastName, req.password);
 
-  if (result.error || !result) return res.status(400).json(result);
+    if (result.error || !result) return next(result);
 
-  const token = sign(result); // result tem o seguinte formato { costumerId: 123 }
+    const token = sign(result); // result tem o seguinte formato { costumerId: 123 }
 
-  return res.status(200).json({ result, token });
+    return res.status(200).json({ result, token });
+  } catch (e) {
+    return next(e);
+  }
 };
 
 module.exports = {

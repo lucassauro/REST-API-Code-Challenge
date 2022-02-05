@@ -1,5 +1,5 @@
-const models = require('../database/models');
-const { sequelize } = require('../database/models');
+const models = require('../../database/models');
+const { sequelize } = require('../../database/models');
 
 const create = async (cpf, firstName, middleName, lastName, hashedPassword, accountNumber) => {
   const t = await sequelize.transaction();
@@ -33,9 +33,9 @@ const create = async (cpf, firstName, middleName, lastName, hashedPassword, acco
     return {
       customerId: id,
     };
-  } catch (e) {
+  } catch (error) {
     await t.rollback();
-    return { e: { error: e.message } };
+    return { error };
   }
 };
 

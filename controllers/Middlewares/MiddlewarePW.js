@@ -1,13 +1,28 @@
-const validatePW = (req, res, next) => {
-  const [, hash] = req.headers.authorization.split(' ');
+const errors = {
+  missingPassword: {
+    error: 'missingPassword',
+    message: 'Password é necessário',
+  },
+  invalidPassword: {
+    error: 'invalidPassword',
+    message: 'O password deve conter de 8 a 64 caracteres e, no mínimo um número, uma letra minúscula, uma letra maiscula e um caracter especial.',
+  },
+};
 
-  const [, password] = Buffer.from(hash, 'base64').toString().split(':');
+const validatePW = (req, _res, next) => {
+  try {
+    const [, hash] = req.headers.authorization.split(' ');
 
-  if (!password) return res.status(400).json({ message: 'Password é necessário' });
+    const [, password] = Buffer.from(hash, 'base64').toString().split(':');
 
-  if (password.length < 8) return res.status(400).json({ message: 'Password inválido. Mínimo 8 caracteres' });
+    if (!password) return next(errors.missingPassword);
 
-  return next();
+    if (!password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/)) return next(errors.invalidPassword);
+
+    return next();
+  } catch (e) {
+    return next(e);
+  }
 };
 
 module.exports = validatePW;

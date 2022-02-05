@@ -1,22 +1,33 @@
-const JWT = require('../../services/jwt');
-const findCustomerById = require('../../services/findCustomerById');
-const accountExists = require('../../services/accountExists');
+const JWT = require('../../services/functions/jwt');
+const findCustomerById = require('../../services/functions/findCustomerById');
+const verifyAccount = require('../../services/functions/verifyAccount');
 
-const auth = async (req, res, next) => {
-  const [, token] = req.headers.authorization.split(' ');
+const errors = {
+  invalidToken: {
+    error: 'invalidToken',
+    message: 'O token não contém informação de um usuário válido',
+  },
+};
 
-  const payload = JWT.verify(token);
+const auth = async (req, _res, next) => {
+  try {
+    const [, token] = req.headers.authorization.split(' ');
 
-  const customer = await findCustomerById(payload.customerId);
+    const payload = JWT.verify(token);
 
-  const account = await accountExists(undefined, payload.customerId);
+    const customer = await findCustomerById(payload.customerId);
 
-  if (!customer) return res.status(401);
+    const account = await verifyAccount(undefined, payload.customerId);
 
-  req.me = customer;
-  req.myAccount = account;
+    if (!customer) return next(errors.invalidToken);
 
-  return next();
+    req.me = customer;
+    req.myAccount = account;
+
+    return next();
+  } catch (e) {
+    return next(e);
+  }
 };
 
 module.exports = auth;

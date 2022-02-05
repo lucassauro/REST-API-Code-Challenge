@@ -1,15 +1,26 @@
 const CPF = require('node-cpf');
 
-const validateCPF = (req, res, next) => {
-  const [, hash] = req.headers.authorization.split(' ');
+const errors = {
+  invalidCPF: {
+    error: 'invalidCPF',
+    message: 'CPF deve possuir 11 dígitos e ter dígito verificador válido.',
+  },
+};
 
-  const [cpf] = Buffer.from(hash, 'base64').toString().split(':');
+const validateCPF = (req, _res, next) => {
+  try {
+    const [, hash] = req.headers.authorization.split(' ');
 
-  const isValid = CPF.validate(cpf);
+    const [cpf] = Buffer.from(hash, 'base64').toString().split(':');
 
-  if (!isValid) return res.status(400).json({ message: 'CPF inválido. Deve possuir 11 dígitos e ser válido' });
+    const isValid = CPF.validate(cpf);
 
-  return next();
+    if (!isValid) return next(errors.invalidCPF);
+
+    return next();
+  } catch (e) {
+    return next(e);
+  }
 };
 
 module.exports = validateCPF;

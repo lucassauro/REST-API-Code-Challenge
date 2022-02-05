@@ -1,22 +1,33 @@
 const ServiceTransactions = require('../services/ServiceTransactions');
 
-const deposits = async (req, res) => {
+const deposits = async (req, res, next) => {
   const { value } = req.headers;
   const { customerId, accountNumber } = req.myAccount;
 
-  const result = await ServiceTransactions.deposits(value, customerId, accountNumber);
-  // fazer tratamento de erro
+  try {
+    const result = await ServiceTransactions.deposits(value, customerId, accountNumber);
 
-  res.status(200).json(result);
+    if (result.error || !result) return next(result);
+
+    return res.status(200).json(result);
+  } catch (e) {
+    return next(e);
+  }
 };
 
-const transfers = async (req, res) => {
+const transfers = async (req, res, next) => {
   const { value, to } = req.headers;
   const { customerId } = req.myAccount;
 
-  const result = await ServiceTransactions.transfers(customerId, value, to);
+  try {
+    const result = await ServiceTransactions.transfers(customerId, value, to);
 
-  res.status(200).json(result);
+    if (result.error || !result) return next(result);
+
+    return res.status(200).json(result);
+  } catch (e) {
+    return next(e);
+  }
 };
 
 module.exports = {
