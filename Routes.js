@@ -6,6 +6,7 @@ const validateCPF = require('./controllers/Middlewares/MiddlewareCPF');
 const validatePW = require('./controllers/Middlewares/MiddlewarePW');
 const validateNames = require('./controllers/Middlewares/MiddlewareName');
 const validateValue = require('./controllers/Middlewares/MiddlewareValue');
+const validateAccountNumber = require('./controllers/Middlewares/MiddlewareAccount');
 const auth = require('./controllers/Middlewares/MiddlewareAuth');
 // controllers
 const ControllerSignup = require('./controllers/ControllerSignup');
@@ -50,6 +51,7 @@ router.post('/me/deposit', [
 
 router.post('/me/transfer', [
   validateValue,
+  validateAccountNumber,
   auth,
   ControllerTransactions.transfers,
 ]);

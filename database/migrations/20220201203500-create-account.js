@@ -25,6 +25,7 @@ module.exports = {
       typeId: {
         type: Sequelize.INTEGER,
         field: 'type_id',
+        foreignKey: true,
         references: {
           model: 'Account_types',
           key: 'type_id',
@@ -33,6 +34,7 @@ module.exports = {
       statusId: {
         type: Sequelize.INTEGER,
         field: 'status_id',
+        foreignKey: true,
         references: {
           model: 'Account_statuses',
           key: 'status_id',
@@ -41,6 +43,7 @@ module.exports = {
       customerId: {
         type: Sequelize.INTEGER,
         field: 'customer_id',
+        foreignKey: true,
         references: {
           model: 'Customers',
           key: 'customer_id',
@@ -49,6 +52,7 @@ module.exports = {
       branchId: {
         type: Sequelize.INTEGER,
         field: 'branch_id',
+        foreignKey: true,
         references: {
           model: 'Branches',
           key: 'branch_id',

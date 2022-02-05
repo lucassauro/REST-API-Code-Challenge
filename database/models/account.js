@@ -23,29 +23,34 @@ const Account = (sequelize, DataTypes) => {
     typeId: {
       type: DataTypes.INTEGER,
       field: 'type_id',
+      foreignKey: true,
     },
     statusId: {
       type: DataTypes.INTEGER,
       field: 'status_id',
+      foreignKey: true,
     },
     customerId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       field: 'customer_id',
+      foreignKey: true,
     },
     branchId: {
       type: DataTypes.INTEGER,
       field: 'branch_id',
+      foreignKey: true,
     },
     createdAt: {
       field: 'created_at',
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+      // defaultValue: DataTypes.NOW,
+      defaultValue: sequelize.literal('NOW()'),
     },
     updatedAt: {
-      field: 'created_at',
+      field: 'updated_at',
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+      defaultValue: sequelize.literal('NOW()'),
     },
   }, {
     sequelize,

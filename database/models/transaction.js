@@ -33,7 +33,7 @@ const Transaction = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW,
     },
     updatedAt: {
-      field: 'created_at',
+      field: 'updated_at',
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
