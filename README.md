@@ -1,4 +1,5 @@
 # REST-API-Code-Challenge
+
 <details>
 
 <summary>Desafio de Backend</summary>
@@ -43,4 +44,6 @@ A arquitetura MSC foi escolhida para desenvolvimento da API, seguindo os padrõe
 
 Para escrita de testes, foram utilizados os frameworks Sinon, Mocha e Chai.
 
+
+[![wakatime](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4.svg)](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4)
 
