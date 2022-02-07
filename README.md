@@ -65,10 +65,42 @@ Para escrita de testes, foram utilizados os frameworks Sinon, Mocha e Chai.
 ![Modelagem do banco de dados](https://github.com/lucassauro/REST-API-Code-Challenge/blob/main/bank.png?raw=true)
   
 </details>
- 
-[![wakatime](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4.svg)](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4)
-
 
 ## Instruções para execução
 
-É necessário 
+É necessário ter instalada a versão 16.13.2 LTS do node para executar o projeto.
+
+Para executar o projeto, é necessário renomear o arquivo `example.env` para `.env`, fazer as configurações necessárias com usuário e senha para o Sequelize acessar o banco de dados e, caso seja pertinente, alterar o número da porta que a aplicação utilizará e o nome do banco de dados.
+
+Atenção: Certifique-se de que o nome do banco de dados definido no arquivo .env não esteja em conflito com eventual banco de dados já existente na máquina. Se já existir algum banco de dados com o nome 'Bank', ele será dropado com o comando a seguir.
+
+Em seguida, executar os comandos `npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all`. Para o banco de dados da aplicação ser criado, bem como suas tabelas e conteúdo.
+
+Em seguida, o comando `npm start` iniciará a aplicação na porta definida no arquivo `.env` e será possível realizar requisições aos endpoints por meio do Insomnia, Postman, HTTPie ou outros.
+
+<details>
+  
+  <summary>Os endpoints são os seguintes: </summary>
+  
+
+  
+`localhost:PORT/cpf-generator` - GET
+
+`localhost:PORT/signup` - POST: Deve conter um body com as propriedades `firstName`, `middleName (opcional)` e `lastName` cujo valor seja uma string com, pelo menos, dois caracteres; e, no header, Basic auth em que username é um número de `CPF` válido (é possível gerar um número de CPF válido no endpoint acima) e uma `senha` que contenha 1 número, 1 letra minúscula, 1 letra maiúscula e 1 caracter especial. Retorna um token e o id do cliente.
+
+`localhost:PORT/login` - GET: Deve conter no header `Basic auth` em que username é um número de CPF válido e cadastrado; e a `senha`. Retorna um token.
+
+`localhost:PORT/me` - GET: Deve conter no header um `Bearer token`, gerado no signup ou login. Retorna informações do cliente.
+
+`localhost:PORT/me/account` - GET: Deve conter no header um `Bearer token`, gerado no signup ou login. Retorna informações da conta do cliente.
+
+`localhost:PORT/me/deposit` - POST: Deve conter no header um `Bearer token`, gerado no signup ou login; e um body com a propriedade `value`, cujo valor deve ser um número no formato 1000 ou 1000.00. Retorna o saldo anterior e atual da conta.
+
+`localhost:PORT/me/transfer` - POST: Deve conter no header um `Bearer token`, gerado no signup ou login; e um body contendo as propriedades `value`, cujo valor deve ser um número; e `to`, cujo valor deve ser uma string contendo o número da conta para transferência. É possível verificar o número da conta com o token no endpoint `/me/account`.
+
+Para executar os testes, é possível alterar no arquivo `.env`, a propriedade `NODE_ENV` de development para test para que o Sequelize utilize o banco de testes, e não prejudique o banco de dados utilizado para desenvolvimento.
+
+</details>
+
+ O tempo despendido para realização deste projeto:
+[![wakatime](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4.svg)](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4)
