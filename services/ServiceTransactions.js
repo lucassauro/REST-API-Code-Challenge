@@ -18,16 +18,19 @@ const errors = {
   },
 };
 
-const deposits = async (value, customerId, accountNumber) => {
+const deposits = async (val, customerId, accountNumber) => {
   const t = await sequelize.transaction();
+
+  const value = parseFloat(val);
+
   try {
     const [balance, accountId] = await findBalance(customerId);
 
-    const newBalance = balance + parseFloat(value);
+    const newBalance = balance + value;
 
     await models.Transaction.create({
       typeId: 2, // transaction_type deposit;
-      amount: parseFloat(value),
+      amount: value,
       accountPayer: accountId,
       accountPayee: accountId,
     }, {
@@ -77,7 +80,7 @@ const transfers = async (customerId, val, to) => {
     const newPayerBalance = payerBalance - value;
 
     const newPayeeBalance = payeeBalance + value;
-    console.log(value);
+
     await models.Transaction.create({
       typeId: 1, // transaction_type transfer;
       amount: value,

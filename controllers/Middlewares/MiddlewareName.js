@@ -27,13 +27,13 @@ const validateNames = (req, res, next) => {
 
     if (!firstName) return next(errors.missingFirstName);
 
-    if (typeof firstName !== 'string' || firstName.length < 2) return next(errors.firstNameInvalid);
+    if (typeof firstName !== 'string' || firstName.length < 2) return next(errors.invalidFirstName);
 
     if (!lastName) return next(errors.missingLastName);
 
-    if (typeof lastName !== 'string' || lastName.length < 2) return next(errors.lastNameInvalid);
+    if (typeof lastName !== 'string' || lastName.length < 2) return next(errors.invalidLastName);
 
-    if (middleName && typeof middleName !== 'string') return next(errors.middleNameInvalid);
+    if (middleName && typeof middleName !== 'string') return next(errors.invalidMiddleName);
 
     return next();
   } catch (e) {

@@ -5,6 +5,11 @@ module.exports = {
       first_name: 'Arthur',
       middle_name: null,
       last_name: 'Dent',
+    }, {
+      cpf: '789.360.415-84',
+      first_name: 'Ford',
+      middle_name: null,
+      last_name: 'Prefect',
     }], {});
   },
 

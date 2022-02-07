@@ -31,7 +31,6 @@ module.exports = (err, _req, res, _next) => {
     notFound: 404,
     // 409
     alreadyRegistered: 409, // signup
-    // 500
   };
 
   if (!err) return res.status(500).json({ message: 'Ocorreu algum erro.' });

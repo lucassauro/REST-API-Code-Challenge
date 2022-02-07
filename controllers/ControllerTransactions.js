@@ -1,7 +1,9 @@
 const ServiceTransactions = require('../services/ServiceTransactions');
 
 const deposits = async (req, res, next) => {
-  const { value } = req.headers;
+  // For security reasons, SSL/TLS and https protocol should be used.
+  // const { value } = req.headers;
+  const { value } = req.body;
   const { customerId, accountNumber } = req.myAccount;
 
   try {
@@ -16,7 +18,9 @@ const deposits = async (req, res, next) => {
 };
 
 const transfers = async (req, res, next) => {
-  const { value, to } = req.headers;
+  // For security reasons, SSL/TLS and https protocol should be used.
+  // const { value, to } = req.headers;
+  const { value, to } = req.body;
   const { customerId } = req.myAccount;
 
   try {

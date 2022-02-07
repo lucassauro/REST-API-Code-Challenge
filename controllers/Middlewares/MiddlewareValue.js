@@ -15,7 +15,8 @@ const errors = {
 
 const validateValue = async (req, _res, next) => {
   try {
-    const { value } = req.headers;
+    // const { value } = req.headers;
+    const { value } = req.body;
 
     if (Number.isNaN(parseFloat(value))) return next(errors.mustBeANumber);
     if (value < 0) return next(errors.mustBePositive);

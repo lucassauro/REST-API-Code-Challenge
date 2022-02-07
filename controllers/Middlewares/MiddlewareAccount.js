@@ -9,7 +9,8 @@ const errors = {
 
 const validateAccountNumber = async (req, _res, next) => {
   try {
-    const split = req.headers.to.split('-');
+    // const split = req.headers.to.split('-');
+    const split = req.body.to.split('-');
     const accountSemHifen = split.join('');
 
     const isValid = new ParseSSN(accountSemHifen);
