@@ -59,7 +59,16 @@ Para escrita de testes, foram utilizados os frameworks Sinon, Mocha e Chai.
 
 
 ## Banco de dados
-A seguinte modelagem foi utilizada:
+<details>
+  <summary>A seguinte modelagem foi utilizada: </summary>
+  
 ![Modelagem do banco de dados](https://github.com/lucassauro/REST-API-Code-Challenge/blob/main/bank.png?raw=true)
+  
+</details>
+ 
 [![wakatime](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4.svg)](https://wakatime.com/badge/user/c9ea92f1-9424-4e76-9310-0d296f97b568/project/ae6db6d9-18d4-4c82-9634-a20d563be2a4)
 
+
+## Instruções para execução
+
+É necessário 
