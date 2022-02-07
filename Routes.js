@@ -26,7 +26,7 @@ router.post('/signup', [
   ControllerSignup.signup,
 ]);
 
-router.post('/login', [
+router.get('/login', [
   validateCPF,
   validatePW,
   passwordHash,
